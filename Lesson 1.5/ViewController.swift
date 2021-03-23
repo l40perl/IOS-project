@@ -55,10 +55,28 @@ class ViewController: UIViewController {
     
     
     @IBAction func buttonAction(_ sender: Any) {
-        if loginTextField.text == "admin",
-           passwordTextField.text == "123456" {
-            print("Вход успешен")
+
+    }
+    
+    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
+        if identifier == "toMain" {
+            if loginTextField.text == "admin",
+               passwordTextField.text == "123456" {
+                return true
+            } else {
+                showErrorAlert()
+                return false
+            }
+        } else {
+            return super.shouldPerformSegue(withIdentifier: identifier, sender: sender)
         }
+    }
+    
+    func showErrorAlert() {
+        let alert = UIAlertController(title: "Ошибка", message: "Неверные данные пользователя", preferredStyle: .alert)
+        let ok = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+        alert.addAction(ok)
+        self.present(alert, animated: true, completion: nil)
     }
     
 }
